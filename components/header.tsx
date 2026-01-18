@@ -17,7 +17,7 @@ export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-50 bg-card border-b-2 border-primary shadow-md">
+    <header className="sticky top-0 z-50 bg-card border-b border-primary shadow-md">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           <Link href="/" className="flex items-center gap-3 hover:opacity-90 transition-opacity">
@@ -50,7 +50,7 @@ export function Header() {
           </nav>
 
           <div className="hidden md:block">
-            <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full">
+            <Button asChild className="bg-primary hover:bg-primary/80 text-primary-foreground rounded-full font-semibold">
               <a
                 href="https://api.whatsapp.com/send/?phone=5579996482391"
                 target="_blank"
@@ -63,7 +63,7 @@ export function Header() {
 
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 text-foreground"
+            className="md:hidden p-2 text-foreground hover:text-primary transition-colors"
             aria-label="Toggle menu"
           >
             {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -71,7 +71,7 @@ export function Header() {
         </div>
 
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-border">
+          <div className="md:hidden py-4 border-t border-primary/30">
             <nav className="flex flex-col gap-4">
               {navLinks.map((link) => (
                 <Link
@@ -83,7 +83,7 @@ export function Header() {
                   {link.label}
                 </Link>
               ))}
-              <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full mt-2">
+              <Button asChild className="bg-primary hover:bg-primary/80 text-primary-foreground rounded-full font-semibold mt-2">
                 <a
                   href="https://api.whatsapp.com/send/?phone=5579996482391"
                   target="_blank"

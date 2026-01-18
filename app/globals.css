@@ -124,3 +124,101 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Animações personalizadas */
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(220, 20, 60, 0.3), 0 0 40px rgba(255, 255, 0, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(220, 20, 60, 0.5), 0 0 60px rgba(255, 255, 0, 0.2);
+  }
+}
+
+@keyframes slide-in-bottom {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float-animation {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Estilo para cards com efeito hover melhorado */
+.card-hover {
+  @apply transition-all duration-300 ease-out;
+}
+
+.card-hover:hover {
+  @apply transform -translate-y-1 shadow-xl;
+  box-shadow: 0 20px 40px rgba(220, 20, 60, 0.15);
+}
+
+/* Hero minimalista */
+.gradient-hero {
+  background: #0a0a0a;
+  position: relative;
+}
+
+/* Botão primário simples */
+.button-primary {
+  @apply bg-primary hover:bg-primary/80 text-primary-foreground rounded-full font-semibold transition-all duration-300;
+}
+
+/* Efeito de brilho nos ícones */
+.icon-glow {
+  @apply transition-all duration-300;
+}
+
+.icon-glow:hover {
+  filter: drop-shadow(0 0 8px rgba(220, 20, 60, 0.6));
+}
+
+/* Seção com cor fixa */
+.section-gradient-primary {
+  background: #DC143C;
+  position: relative;
+}
+
+.section-gradient-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Card com border simples */
+.card-border-gradient {
+  @apply relative bg-card border border-border rounded-2xl overflow-hidden;
+}
+
+.card-border-gradient::before {
+  content: '';
+  pointer-events: none;
+}
+
+/* Highlight com amarelo */
+.highlight-accent {
+  @apply text-secondary font-semibold;
+}
+
+/* Efeito de entrada para elementos */
+.fade-in-up {
+  animation: slide-in-bottom 0.6s ease-out;
+}
+
+/* Flutuação suave */
+.float {
+  animation: float-animation 3s ease-in-out infinite;
+}
