@@ -1,0 +1,60 @@
+<svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+  <!-- Antenas com bolinhas -->
+  <line x1="85" y1="40" x2="70" y2="10" stroke="#DC143C" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="70" cy="10" r="12" fill="#DC143C"/>
+  <circle cx="70" cy="10" r="8" fill="#FFFF00"/>
+  
+  <line x1="171" y1="40" x2="186" y2="10" stroke="#DC143C" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="186" cy="10" r="12" fill="#DC143C"/>
+  <circle cx="186" cy="10" r="8" fill="#FFFF00"/>
+  
+  <!-- Cabeça com antenas -->
+  <rect x="80" y="40" width="96" height="100" rx="20" fill="#DC143C"/>
+  
+  <!-- Topo da cabeça (pele) -->
+  <ellipse cx="128" cy="70" rx="50" ry="40" fill="#F5DEB3"/>
+  
+  <!-- Olhos -->
+  <circle cx="105" cy="75" r="8" fill="white"/>
+  <circle cx="151" cy="75" r="8" fill="white"/>
+  
+  <!-- Boca sorriso -->
+  <path d="M 110 95 Q 128 105 146 95" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+  
+  <!-- Corpo vermelho -->
+  <rect x="75" y="140" width="106" height="80" rx="15" fill="#DC143C"/>
+  
+  <!-- Peito com badge -->
+  <circle cx="128" cy="165" r="28" fill="#FFFF00"/>
+  <text x="128" y="170" font-size="24" font-weight="bold" fill="#DC143C" text-anchor="middle">CH</text>
+  
+  <!-- Cintura amarela -->
+  <rect x="75" y="185" width="106" height="20" fill="#FFFF00"/>
+  <text x="128" y="198" font-size="10" font-weight="bold" fill="#DC143C" text-anchor="middle">SMARTPHONES</text>
+  
+  <!-- Pernas -->
+  <rect x="85" y="205" width="18" height="50" rx="8" fill="#FFFF00"/>
+  <rect x="153" y="205" width="18" height="50" rx="8" fill="#FFFF00"/>
+  
+  <!-- Sapatos -->
+  <ellipse cx="94" cy="255" rx="15" ry="8" fill="#DC143C"/>
+  <ellipse cx="162" cy="255" rx="15" ry="8" fill="#DC143C"/>
+  
+  <!-- Braço esquerdo com polegar -->
+  <g>
+    <rect x="45" y="155" width="30" height="35" rx="8" fill="#DC143C"/>
+    <circle cx="45" cy="175" r="12" fill="#F5DEB3"/>
+    <!-- Polegar -->
+    <rect x="30" y="160" width="12" height="20" rx="6" fill="#F5DEB3"/>
+  </g>
+  
+  <!-- Braço direito com celular -->
+  <g>
+    <rect x="181" y="155" width="30" height="35" rx="8" fill="#DC143C"/>
+    <circle cx="211" cy="175" r="12" fill="#F5DEB3"/>
+    <!-- Celular/Smartphone -->
+    <rect x="218" y="145" width="15" height="30" rx="2" fill="#000000"/>
+    <rect x="220" y="147" width="11" height="20" fill="#FFFF00"/>
+    <circle cx="225.5" cy="170" r="2" fill="#000000"/>
+  </g>
+</svg>

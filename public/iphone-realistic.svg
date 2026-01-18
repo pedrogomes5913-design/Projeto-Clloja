@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 400 800" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <linearGradient id="phoneGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2a2a2a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a1a1a;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="frameGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#404040;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#2a2a2a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a1a1a;stop-opacity:1" />
+    </linearGradient>
+    
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="20" stdDeviation="30" flood-opacity="0.5"/>
+    </filter>
+    
+    <linearGradient id="screenContent" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#111111;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0a0a0a;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Sombra de fundo -->
+  <ellipse cx="200" cy="750" rx="150" ry="40" fill="#000000" opacity="0.3"/>
+  
+  <!-- Frame/Chassis do iPhone -->
+  <path d="M 60 40 L 340 40 Q 360 40 360 60 L 360 740 Q 360 760 340 760 L 60 760 Q 40 760 40 740 L 40 60 Q 40 40 60 40 Z" fill="url(#frameGradient)" filter="url(#shadow)"/>
+  
+  <!-- Borda interna (para dar efeito 3D) -->
+  <path d="M 65 45 L 335 45 Q 355 45 355 60 L 355 740 Q 355 755 335 755 L 65 755 Q 45 755 45 740 L 45 60 Q 45 45 65 45 Z" fill="none" stroke="#505050" stroke-width="1" opacity="0.5"/>
+  
+  <!-- Tela/Display -->
+  <rect x="70" y="80" width="260" height="620" rx="40" fill="url(#screenContent)"/>
+  
+  <!-- Notch -->
+  <ellipse cx="200" cy="110" rx="55" ry="28" fill="#000000"/>
+  
+  <!-- Câmera e sensor no notch -->
+  <circle cx="185" cy="110" r="6" fill="#1a1a1a"/>
+  <circle cx="215" cy="110" r="6" fill="#1a1a1a"/>
+  
+  <!-- Conteúdo da tela - barra de status -->
+  <text x="90" y="145" font-family="Arial, sans-serif" font-size="11" fill="#ffffff" opacity="0.8">9:41</text>
+  <rect x="310" y="135" width="15" height="10" rx="2" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.6"/>
+  <rect x="312" y="137" width="11" height="6" fill="#ffffff" opacity="0.6"/>
+  
+  <!-- Linhas de status -->
+  <circle cx="320" cy="142" r="1.5" fill="#ffffff" opacity="0.6"/>
+  <circle cx="330" cy="142" r="1.5" fill="#ffffff" opacity="0.6"/>
+  
+  <!-- Conteúdo principal da tela -->
+  <!-- Logo Apple -->
+  <text x="200" y="280" font-size="80" text-anchor="middle" fill="#FFFF00" opacity="0.15">🍎</text>
+  
+  <!-- Título -->
+  <text x="200" y="380" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#ffffff">CH SMARTPHONES</text>
+  
+  <!-- Subtítulo -->
+  <text x="200" y="420" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#888888">Seminovo • Garantia</text>
+  
+  <!-- Alguns ícones de apps -->
+  <rect x="110" y="480" width="45" height="45" rx="10" fill="#DC143C"/>
+  <text x="132.5" y="510" font-size="24" text-anchor="middle">📱</text>
+  
+  <rect x="175" y="480" width="45" height="45" rx="10" fill="#FFFF00"/>
+  <text x="197.5" y="510" font-size="24" text-anchor="middle">⭐</text>
+  
+  <rect x="240" y="480" width="45" height="45" rx="10" fill="#FF6B6B"/>
+  <text x="262.5" y="510" font-size="24" text-anchor="middle">✨</text>
+  
+  <!-- Barra de início (home indicator) -->
+  <rect x="160" y="720" width="80" height="5" rx="2.5" fill="#ffffff" opacity="0.3"/>
+  
+  <!-- Alto-falante -->
+  <rect x="150" y="65" width="100" height="3" rx="1.5" fill="#1a1a1a"/>
+  
+  <!-- Botão de volume (lado esquerdo) -->
+  <rect x="35" y="250" width="6" height="35" rx="3" fill="#303030"/>
+  <rect x="35" y="310" width="6" height="35" rx="3" fill="#303030"/>
+  
+  <!-- Botão power (lado direito) -->
+  <rect x="359" y="280" width="6" height="50" rx="3" fill="#303030"/>
+  
+  <!-- Câmera traseira (topo) -->
+  <circle cx="200" cy="68" r="10" fill="#0a0a0a" opacity="0.3"/>
+  <circle cx="200" cy="68" r="8" fill="#1a1a1a"/>
+  <circle cx="200" cy="68" r="6" fill="#0a0a0a" opacity="0.8"/>
+</svg>
