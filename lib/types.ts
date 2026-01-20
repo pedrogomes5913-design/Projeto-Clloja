@@ -6,5 +6,5 @@ export interface Product {
   condition: string
   price: number
   imageUrl: string
-  status: "disponivel" | "vendido"
+  status: "disponivel" | "reservado"
 }

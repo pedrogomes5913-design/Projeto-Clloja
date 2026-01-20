@@ -21,10 +21,10 @@ export function ProductCard({ product }: ProductCardProps) {
           className="object-cover"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
-        {product.status === "vendido" && (
+        {product.status === "reservado" && (
           <div className="absolute inset-0 bg-foreground/60 flex items-center justify-center">
             <span className="bg-primary text-primary-foreground px-4 py-2 rounded-full font-semibold text-lg">
-              Vendido
+              Reservado
             </span>
           </div>
         )}

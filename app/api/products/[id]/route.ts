@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server"
+import { revalidatePath } from "next/cache"
 import { getProduct, updateProduct, deleteProduct } from "@/lib/products"
 
 export async function GET(
@@ -43,6 +44,11 @@ export async function PUT(
       )
     }
 
+    // Revalidar as páginas que usam dados de produtos
+    revalidatePath("/estoque")
+    revalidatePath("/admin")
+    revalidatePath("/api/products")
+
     return NextResponse.json(updated)
   } catch {
     return NextResponse.json(
@@ -65,6 +71,11 @@ export async function DELETE(
       { status: 404 }
     )
   }
+
+  // Revalidar as páginas que usam dados de produtos
+  revalidatePath("/estoque")
+  revalidatePath("/admin")
+  revalidatePath("/api/products")
 
   return NextResponse.json({ success: true })
 }

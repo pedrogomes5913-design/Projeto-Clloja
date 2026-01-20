@@ -40,7 +40,7 @@ export default function AdminPage() {
   }
 
   const handleStatusToggle = async (product: Product) => {
-    const newStatus = product.status === "disponivel" ? "vendido" : "disponivel"
+    const newStatus = product.status === "disponivel" ? "reservado" : "disponivel"
     await fetch(`/api/products/${product.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -145,7 +145,7 @@ export default function AdminPage() {
                               : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                           }`}
                         >
-                          {product.status === "disponivel" ? "Disponivel" : "Vendido"}
+                          {product.status === "disponivel" ? "Disponivel" : "Reservado"}
                         </button>
                       </td>
                       <td className="px-6 py-4">
@@ -224,6 +224,8 @@ function ProductForm({
     status: product?.status || "disponivel",
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isUploading, setIsUploading] = useState(false)
+  const [imagePreview, setImagePreview] = useState<string | null>(product?.imageUrl || null)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -247,6 +249,35 @@ function ProductForm({
       }
     } finally {
       setIsSubmitting(false)
+    }
+  }
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    setIsUploading(true)
+    try {
+      const formDataToSend = new FormData()
+      formDataToSend.append("file", file)
+
+      const response = await fetch("/api/upload", {
+        method: "POST",
+        body: formDataToSend,
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        setFormData({ ...formData, imageUrl: data.imageUrl })
+        setImagePreview(data.imageUrl)
+      } else {
+        const error = await response.json()
+        alert(error.error || "Erro ao fazer upload")
+      }
+    } catch (error) {
+      alert("Erro ao fazer upload da imagem")
+    } finally {
+      setIsUploading(false)
     }
   }
 
@@ -321,21 +352,43 @@ function ProductForm({
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="imageUrl" className="text-card-foreground">URL da Imagem</Label>
-        <Input
-          id="imageUrl"
-          value={formData.imageUrl}
-          onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
-          placeholder="/products/iphone-13.jpg"
-          className="bg-background"
-        />
+        <Label htmlFor="image" className="text-card-foreground">Imagem do Produto</Label>
+        <div className="flex flex-col gap-3">
+          <div className="relative">
+            <input
+              id="image"
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
+              disabled={isUploading}
+              className="block w-full text-sm text-muted-foreground
+                file:mr-4 file:py-2 file:px-4
+                file:rounded-full file:border-0
+                file:text-sm file:font-semibold
+                file:bg-primary file:text-primary-foreground
+                hover:file:bg-primary/90
+                disabled:opacity-50 disabled:cursor-not-allowed"
+            />
+            {isUploading && <p className="text-sm text-muted-foreground mt-1">Enviando...</p>}
+          </div>
+          {imagePreview && (
+            <div className="relative w-24 h-24 rounded-lg overflow-hidden bg-muted border border-border">
+              <Image
+                src={imagePreview}
+                alt="Preview"
+                fill
+                className="object-cover"
+              />
+            </div>
+          )}
+        </div>
       </div>
 
       <div className="space-y-2">
         <Label htmlFor="status" className="text-card-foreground">Status</Label>
         <Select
           value={formData.status}
-          onValueChange={(value: "disponivel" | "vendido") =>
+          onValueChange={(value: "disponivel" | "reservado") =>
             setFormData({ ...formData, status: value })
           }
         >
@@ -344,7 +397,7 @@ function ProductForm({
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="disponivel">Disponivel</SelectItem>
-            <SelectItem value="vendido">Vendido</SelectItem>
+            <SelectItem value="reservado">Reservado</SelectItem>
           </SelectContent>
         </Select>
       </div>

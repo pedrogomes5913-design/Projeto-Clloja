@@ -42,7 +42,7 @@ let products: Product[] = [
     condition: "Seminovo - Excelente",
     price: 1799,
     imageUrl: "/products/galaxy-a54.jpg",
-    status: "vendido",
+    status: "reservado",
   },
   {
     id: "5",

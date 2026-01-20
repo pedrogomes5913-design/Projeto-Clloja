@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server"
+import { revalidatePath } from "next/cache"
 import { getProducts, addProduct } from "@/lib/products"
 
 export async function GET() {
@@ -26,6 +27,11 @@ export async function POST(request: Request) {
       imageUrl: body.imageUrl || "/products/placeholder.jpg",
       status: body.status || "disponivel",
     })
+
+    // Revalidar as páginas que usam dados de produtos
+    revalidatePath("/estoque")
+    revalidatePath("/admin")
+    revalidatePath("/api/products")
 
     return NextResponse.json(newProduct, { status: 201 })
   } catch {
