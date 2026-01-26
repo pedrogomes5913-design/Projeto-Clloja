@@ -1,3 +1,5 @@
+"use client"
+
 import Image from "next/image"
 import type { Product } from "@/lib/types"
 import { Button } from "@/components/ui/button"
@@ -8,12 +10,21 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product }: ProductCardProps) {
-  const whatsappMessage = `Ola! Tenho interesse no ${product.brand} ${product.model} ${product.storage} - R$ ${product.price.toLocaleString("pt-BR")}`
-  const whatsappUrl = `https://api.whatsapp.com/send/?phone=5579996482391&text=${encodeURIComponent(whatsappMessage)}`
+  const getWhatsAppMessage = (product: Product) => {
+    const disponibilidade =
+      product.status === "disponivel" ? "DISPONÍVEL ✅" : "RESERVADO ⚠️"
+    return `Olá! Tenho interesse no ${product.brand} ${product.model} ${product.storage}.\n\nPreço: R$ ${product.price.toLocaleString("pt-BR")}\nDisponibilidade: ${disponibilidade}\n\nPoderia me enviar mais informações sobre este aparelho?`
+  }
+
+  const handleProductClick = () => {
+    const message = getWhatsAppMessage(product)
+    const whatsappUrl = `https://api.whatsapp.com/send/?phone=5579996482391&text=${encodeURIComponent(message)}`
+    window.open(whatsappUrl, "_blank")
+  }
 
   return (
     <div className="bg-card rounded-2xl shadow-sm border border-border overflow-hidden hover:shadow-md transition-shadow">
-      <div className="relative aspect-square bg-muted">
+      <div className="relative aspect-square bg-muted cursor-pointer" onClick={handleProductClick}>
         <Image
           src={product.imageUrl || "/placeholder.svg"}
           alt={`${product.brand} ${product.model}`}
@@ -42,18 +53,14 @@ export function ProductCard({ product }: ProductCardProps) {
           <span className="text-2xl font-bold text-primary">
             R$ {product.price.toLocaleString("pt-BR")}
           </span>
-          {product.status === "disponivel" && (
-            <Button
-              asChild
-              size="sm"
-              className="bg-[#25D366] hover:bg-[#20BA5C] text-white rounded-full"
-            >
-              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-                <MessageCircle className="w-4 h-4 mr-1" />
-                Chamar
-              </a>
-            </Button>
-          )}
+          <Button
+            onClick={handleProductClick}
+            size="sm"
+            className="bg-[#25D366] hover:bg-[#20BA5C] text-white rounded-full"
+          >
+            <MessageCircle className="w-4 h-4 mr-1" />
+            Chamar
+          </Button>
         </div>
       </div>
     </div>
