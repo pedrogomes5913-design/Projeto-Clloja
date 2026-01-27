@@ -363,12 +363,14 @@ function ProductForm({
         const data = await response.json()
         setFormData({ ...formData, imageUrl: data.imageUrl })
         setImagePreview(data.imageUrl)
+        alert("✅ Imagem enviada com sucesso! Agora clique em Salvar para confirmar.")
       } else {
         const error = await response.json()
-        alert(error.error || "Erro ao fazer upload")
+        alert("❌ Erro ao fazer upload: " + (error.error || "Erro desconhecido"))
       }
     } catch (error) {
-      alert("Erro ao fazer upload da imagem")
+      alert("❌ Erro ao fazer upload da imagem")
+      console.error(error)
     } finally {
       setIsUploading(false)
     }
@@ -482,16 +484,22 @@ function ProductForm({
                 hover:file:bg-primary/90
                 disabled:opacity-50 disabled:cursor-not-allowed"
             />
-            {isUploading && <p className="text-xs text-muted-foreground mt-1">Enviando...</p>}
+            {isUploading && <p className="text-xs text-yellow-600 mt-1">⏳ Enviando para Cloudinary...</p>}
           </div>
           {imagePreview && (
-            <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-lg overflow-hidden bg-muted border border-border">
-              <Image
-                src={imagePreview}
-                alt="Preview"
-                fill
-                className="object-cover"
-              />
+            <div className="space-y-2">
+              <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-lg overflow-hidden bg-muted border-2 border-green-500">
+                <Image
+                  src={imagePreview}
+                  alt="Preview"
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-green-500/20 flex items-center justify-center">
+                  <span className="text-xs font-bold text-green-700">✓</span>
+                </div>
+              </div>
+              <p className="text-xs text-green-600 font-semibold">✅ Imagem carregada com sucesso</p>
             </div>
           )}
         </div>
@@ -518,10 +526,15 @@ function ProductForm({
       <Button
         type="submit"
         disabled={isSubmitting}
-        className="w-full bg-primary hover:bg-primary/90 text-primary-foreground rounded-full text-sm"
+        className="w-full bg-primary hover:bg-primary/90 text-primary-foreground rounded-full text-sm font-semibold py-2"
       >
-        {isSubmitting ? "Salvando..." : product ? "Atualizar Produto" : "Adicionar Produto"}
+        {isSubmitting ? "💾 Salvando no banco de dados..." : product ? "✏️ Atualizar Produto" : "➕ Adicionar Produto"}
       </Button>
+      {imagePreview && !product && (
+        <p className="text-xs text-center text-muted-foreground">
+          💡 Imagem carregada! Clique em "{product ? "Atualizar Produto" : "Adicionar Produto"}" para salvar.
+        </p>
+      )}
     </form>
   )
 }
