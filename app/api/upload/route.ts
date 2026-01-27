@@ -1,7 +1,11 @@
 import { NextResponse } from "next/server"
-import { writeFile, mkdir } from "fs/promises"
-import { join } from "path"
-import { existsSync } from "fs"
+import { v2 as cloudinary } from "cloudinary"
+
+cloudinary.config({
+  cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+})
 
 export async function POST(request: Request) {
   try {
@@ -32,31 +36,33 @@ export async function POST(request: Request) {
       )
     }
 
-    // Gerar nome único para o arquivo
-    const timestamp = Date.now()
-    const random = Math.random().toString(36).substring(2, 8)
-    const extension = file.name.split(".").pop()
-    const filename = `${timestamp}-${random}.${extension}`
-
-    // Caminho do arquivo
-    const uploadsDir = join(process.cwd(), "public", "products")
-    const filepath = join(uploadsDir, filename)
-
-    // Criar diretório se não existir
-    if (!existsSync(uploadsDir)) {
-      await mkdir(uploadsDir, { recursive: true })
-    }
-
-    // Converter arquivo para buffer e salvar
+    // Converter arquivo para buffer
     const bytes = await file.arrayBuffer()
     const buffer = Buffer.from(bytes)
-    await writeFile(filepath, buffer)
 
-    // Retornar URL relativa
-    const imageUrl = `/products/${filename}`
+    // Upload para Cloudinary
+    const result = await new Promise((resolve, reject) => {
+      const uploadStream = cloudinary.uploader.upload_stream(
+        {
+          folder: "produtos",
+          resource_type: "auto",
+        },
+        (error, result) => {
+          if (error) reject(error)
+          else resolve(result)
+        }
+      )
+
+      uploadStream.end(buffer)
+    })
+
+    const uploadResult = result as any
 
     return NextResponse.json(
-      { imageUrl, filename },
+      {
+        imageUrl: uploadResult.secure_url,
+        filename: uploadResult.public_id,
+      },
       { status: 200 }
     )
   } catch (error) {
