@@ -7,4 +7,5 @@ export interface Product {
   price: number
   imageUrl: string
   status: "disponivel" | "reservado"
+  batteryHealth?: number // Percentual de bateria (0-100), apenas para iPhones
 }

@@ -70,21 +70,21 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="py-12 md:py-20 bg-background min-h-screen">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between mb-8">
+    <div className="py-8 md:py-20 bg-background min-h-screen">
+      <div className="container mx-auto px-3 md:px-4">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 md:mb-8 gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-foreground">Painel Administrativo</h1>
-            <p className="text-muted-foreground">Gerencie o estoque de produtos</p>
+            <h1 className="text-2xl md:text-3xl font-bold text-foreground">Painel Administrativo</h1>
+            <p className="text-sm md:text-base text-muted-foreground">Gerencie o estoque de produtos</p>
           </div>
           <Dialog open={isAddOpen} onOpenChange={setIsAddOpen}>
             <DialogTrigger asChild>
-              <Button className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full">
+              <Button className="w-full sm:w-auto bg-primary hover:bg-primary/90 text-primary-foreground rounded-full">
                 <Plus className="w-4 h-4 mr-2" />
                 Adicionar Produto
               </Button>
             </DialogTrigger>
-            <DialogContent className="bg-card">
+            <DialogContent className="bg-card max-h-[90vh] overflow-y-auto">
               <DialogHeader>
                 <DialogTitle className="text-card-foreground">Novo Produto</DialogTitle>
               </DialogHeader>
@@ -100,24 +100,25 @@ export default function AdminPage() {
 
         {products && products.length > 0 ? (
           <div className="bg-card rounded-2xl shadow-sm border border-border overflow-hidden">
-            <div className="overflow-x-auto">
+            {/* Desktop: Table View */}
+            <div className="hidden md:block overflow-x-auto">
               <table className="w-full">
                 <thead className="bg-muted">
                   <tr>
-                    <th className="px-6 py-4 text-left text-sm font-semibold text-foreground">Produto</th>
-                    <th className="px-6 py-4 text-left text-sm font-semibold text-foreground">Armazenamento</th>
-                    <th className="px-6 py-4 text-left text-sm font-semibold text-foreground">Condicao</th>
-                    <th className="px-6 py-4 text-left text-sm font-semibold text-foreground">Preco</th>
-                    <th className="px-6 py-4 text-left text-sm font-semibold text-foreground">Status</th>
-                    <th className="px-6 py-4 text-right text-sm font-semibold text-foreground">Acoes</th>
+                    <th className="px-4 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-semibold text-foreground">Produto</th>
+                    <th className="px-4 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-semibold text-foreground">Armazenamento</th>
+                    <th className="px-4 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-semibold text-foreground">Condicao</th>
+                    <th className="px-4 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-semibold text-foreground">Preco</th>
+                    <th className="px-4 md:px-6 py-3 md:py-4 text-left text-xs md:text-sm font-semibold text-foreground">Status</th>
+                    <th className="px-4 md:px-6 py-3 md:py-4 text-right text-xs md:text-sm font-semibold text-foreground">Acoes</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-border">
                   {products.map((product) => (
                     <tr key={product.id} className="hover:bg-muted/50 transition-colors">
-                      <td className="px-6 py-4">
-                        <div className="flex items-center gap-3">
-                          <div className="w-12 h-12 rounded-lg overflow-hidden bg-muted relative shrink-0">
+                      <td className="px-4 md:px-6 py-3 md:py-4">
+                        <div className="flex items-center gap-2 md:gap-3">
+                          <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg overflow-hidden bg-muted relative shrink-0">
                             <Image
                               src={product.imageUrl || "/placeholder.svg"}
                               alt={product.model}
@@ -125,21 +126,21 @@ export default function AdminPage() {
                               className="object-cover"
                             />
                           </div>
-                          <div>
-                            <p className="font-medium text-card-foreground">{product.brand}</p>
-                            <p className="text-sm text-muted-foreground">{product.model}</p>
+                          <div className="min-w-0">
+                            <p className="font-medium text-card-foreground text-sm md:text-base truncate">{product.brand}</p>
+                            <p className="text-xs md:text-sm text-muted-foreground truncate">{product.model}</p>
                           </div>
                         </div>
                       </td>
-                      <td className="px-6 py-4 text-card-foreground">{product.storage}</td>
-                      <td className="px-6 py-4 text-muted-foreground text-sm">{product.condition}</td>
-                      <td className="px-6 py-4 font-semibold text-primary">
+                      <td className="px-4 md:px-6 py-3 md:py-4 text-card-foreground text-sm">{product.storage}</td>
+                      <td className="px-4 md:px-6 py-3 md:py-4 text-muted-foreground text-xs md:text-sm">{product.condition}</td>
+                      <td className="px-4 md:px-6 py-3 md:py-4 font-semibold text-primary text-sm">
                         R$ {product.price.toLocaleString("pt-BR")}
                       </td>
-                      <td className="px-6 py-4">
+                      <td className="px-4 md:px-6 py-3 md:py-4">
                         <button
                           onClick={() => handleStatusToggle(product)}
-                          className={`px-3 py-1 rounded-full text-sm font-medium transition-colors ${
+                          className={`px-2 md:px-3 py-1 rounded-full text-xs md:text-sm font-medium transition-colors ${
                             product.status === "disponivel"
                               ? "bg-green-100 text-green-700 hover:bg-green-200"
                               : "bg-gray-100 text-gray-600 hover:bg-gray-200"
@@ -148,7 +149,7 @@ export default function AdminPage() {
                           {product.status === "disponivel" ? "Disponivel" : "Reservado"}
                         </button>
                       </td>
-                      <td className="px-6 py-4">
+                      <td className="px-4 md:px-6 py-3 md:py-4">
                         <div className="flex items-center justify-end gap-2">
                           <Dialog
                             open={editingProduct?.id === product.id}
@@ -159,12 +160,12 @@ export default function AdminPage() {
                                 variant="outline"
                                 size="sm"
                                 onClick={() => setEditingProduct(product)}
-                                className="rounded-full bg-transparent"
+                                className="rounded-full bg-transparent p-2"
                               >
                                 <Pencil className="w-4 h-4" />
                               </Button>
                             </DialogTrigger>
-                            <DialogContent className="bg-card">
+                            <DialogContent className="bg-card max-h-[90vh] overflow-y-auto">
                               <DialogHeader>
                                 <DialogTitle className="text-card-foreground">Editar Produto</DialogTitle>
                               </DialogHeader>
@@ -183,7 +184,7 @@ export default function AdminPage() {
                             variant="outline"
                             size="sm"
                             onClick={() => handleDelete(product.id)}
-                            className="rounded-full text-destructive hover:text-destructive hover:bg-destructive/10 bg-transparent"
+                            className="rounded-full text-destructive hover:text-destructive hover:bg-destructive/10 bg-transparent p-2"
                           >
                             <Trash2 className="w-4 h-4" />
                           </Button>
@@ -193,6 +194,95 @@ export default function AdminPage() {
                   ))}
                 </tbody>
               </table>
+            </div>
+
+            {/* Mobile: Card View */}
+            <div className="md:hidden divide-y divide-border">
+              {products.map((product) => (
+                <div key={product.id} className="p-4 space-y-3 hover:bg-muted/50 transition-colors">
+                  <div className="flex gap-3">
+                    <div className="w-16 h-16 rounded-lg overflow-hidden bg-muted relative shrink-0">
+                      <Image
+                        src={product.imageUrl || "/placeholder.svg"}
+                        alt={product.model}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-semibold text-card-foreground text-sm">{product.brand}</p>
+                      <p className="text-xs text-muted-foreground">{product.model}</p>
+                      <p className="text-xs text-muted-foreground mt-1">{product.storage}</p>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-2 text-xs">
+                    <div>
+                      <p className="text-muted-foreground">Preço</p>
+                      <p className="font-semibold text-primary">R$ {product.price.toLocaleString("pt-BR")}</p>
+                    </div>
+                    <div>
+                      <p className="text-muted-foreground">Condição</p>
+                      <p className="font-semibold text-card-foreground">{product.condition}</p>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => handleStatusToggle(product)}
+                      className={`flex-1 px-2 py-1 rounded-full text-xs font-medium transition-colors ${
+                        product.status === "disponivel"
+                          ? "bg-green-100 text-green-700 hover:bg-green-200"
+                          : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                      }`}
+                    >
+                      {product.status === "disponivel" ? "Disponivel" : "Reservado"}
+                    </button>
+                  </div>
+
+                  <div className="flex gap-2">
+                    <Dialog
+                      open={editingProduct?.id === product.id}
+                      onOpenChange={(open) => !open && setEditingProduct(null)}
+                    >
+                      <DialogTrigger asChild>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => setEditingProduct(product)}
+                          className="flex-1 rounded-full bg-transparent"
+                        >
+                          <Pencil className="w-4 h-4 mr-1" />
+                          Editar
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="bg-card max-h-[90vh] overflow-y-auto">
+                        <DialogHeader>
+                          <DialogTitle className="text-card-foreground">Editar Produto</DialogTitle>
+                        </DialogHeader>
+                        {editingProduct && (
+                          <ProductForm
+                            product={editingProduct}
+                            onSuccess={() => {
+                              setEditingProduct(null)
+                              mutate("/api/products")
+                            }}
+                          />
+                        )}
+                      </DialogContent>
+                    </Dialog>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => handleDelete(product.id)}
+                      className="flex-1 rounded-full text-destructive hover:text-destructive hover:bg-destructive/10 bg-transparent"
+                    >
+                      <Trash2 className="w-4 h-4 mr-1" />
+                      Deletar
+                    </Button>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         ) : (
@@ -222,10 +312,12 @@ function ProductForm({
     price: product?.price?.toString() || "",
     imageUrl: product?.imageUrl || "",
     status: product?.status || "disponivel",
+    batteryHealth: product?.batteryHealth?.toString() || "",
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isUploading, setIsUploading] = useState(false)
   const [imagePreview, setImagePreview] = useState<string | null>(product?.imageUrl || null)
+  const isIphone = formData.brand.toLowerCase().includes("apple") || formData.brand.toLowerCase().includes("iphone")
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -241,6 +333,7 @@ function ProductForm({
         body: JSON.stringify({
           ...formData,
           price: Number(formData.price),
+          batteryHealth: formData.batteryHealth ? Number(formData.batteryHealth) : undefined,
         }),
       })
 
@@ -282,46 +375,46 @@ function ProductForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div className="grid grid-cols-2 gap-4">
+    <form onSubmit={handleSubmit} className="space-y-4 max-h-[calc(100vh-200px)] overflow-y-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label htmlFor="brand" className="text-card-foreground">Marca</Label>
+          <Label htmlFor="brand" className="text-card-foreground text-sm">Marca</Label>
           <Input
             id="brand"
             value={formData.brand}
             onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
             placeholder="Apple, Samsung..."
             required
-            className="bg-background"
+            className="bg-background text-sm"
           />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="model" className="text-card-foreground">Modelo</Label>
+          <Label htmlFor="model" className="text-card-foreground text-sm">Modelo</Label>
           <Input
             id="model"
             value={formData.model}
             onChange={(e) => setFormData({ ...formData, model: e.target.value })}
             placeholder="iPhone 13, Galaxy S22..."
             required
-            className="bg-background"
+            className="bg-background text-sm"
           />
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label htmlFor="storage" className="text-card-foreground">Armazenamento</Label>
+          <Label htmlFor="storage" className="text-card-foreground text-sm">Armazenamento</Label>
           <Input
             id="storage"
             value={formData.storage}
             onChange={(e) => setFormData({ ...formData, storage: e.target.value })}
             placeholder="128GB, 256GB..."
             required
-            className="bg-background"
+            className="bg-background text-sm"
           />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="price" className="text-card-foreground">Preco (R$)</Label>
+          <Label htmlFor="price" className="text-card-foreground text-sm">Preco (R$)</Label>
           <Input
             id="price"
             type="number"
@@ -329,18 +422,18 @@ function ProductForm({
             onChange={(e) => setFormData({ ...formData, price: e.target.value })}
             placeholder="2499"
             required
-            className="bg-background"
+            className="bg-background text-sm"
           />
         </div>
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="condition" className="text-card-foreground">Condicao</Label>
+        <Label htmlFor="condition" className="text-card-foreground text-sm">Condicao</Label>
         <Select
           value={formData.condition}
           onValueChange={(value) => setFormData({ ...formData, condition: value })}
         >
-          <SelectTrigger className="bg-background">
+          <SelectTrigger className="bg-background text-sm">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -351,8 +444,28 @@ function ProductForm({
         </Select>
       </div>
 
+      {isIphone && (
+        <div className="space-y-2 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+          <Label htmlFor="battery" className="text-card-foreground text-sm">% Bateria (iPhone)</Label>
+          <div className="flex items-center gap-3">
+            <Input
+              id="battery"
+              type="number"
+              min="0"
+              max="100"
+              value={formData.batteryHealth}
+              onChange={(e) => setFormData({ ...formData, batteryHealth: e.target.value })}
+              placeholder="80"
+              className="bg-background text-sm"
+            />
+            <span className="text-sm font-semibold text-blue-600 min-w-fit">{formData.batteryHealth || "0"}%</span>
+          </div>
+          <p className="text-xs text-muted-foreground">Saúde da bateria do iPhone</p>
+        </div>
+      )}
+
       <div className="space-y-2">
-        <Label htmlFor="image" className="text-card-foreground">Imagem do Produto</Label>
+        <Label htmlFor="image" className="text-card-foreground text-sm">Imagem do Produto</Label>
         <div className="flex flex-col gap-3">
           <div className="relative">
             <input
@@ -361,18 +474,18 @@ function ProductForm({
               accept="image/*"
               onChange={handleFileChange}
               disabled={isUploading}
-              className="block w-full text-sm text-muted-foreground
-                file:mr-4 file:py-2 file:px-4
+              className="block w-full text-xs sm:text-sm text-muted-foreground
+                file:mr-2 sm:file:mr-4 file:py-1 sm:file:py-2 file:px-2 sm:file:px-4
                 file:rounded-full file:border-0
-                file:text-sm file:font-semibold
+                file:text-xs sm:file:text-sm file:font-semibold
                 file:bg-primary file:text-primary-foreground
                 hover:file:bg-primary/90
                 disabled:opacity-50 disabled:cursor-not-allowed"
             />
-            {isUploading && <p className="text-sm text-muted-foreground mt-1">Enviando...</p>}
+            {isUploading && <p className="text-xs text-muted-foreground mt-1">Enviando...</p>}
           </div>
           {imagePreview && (
-            <div className="relative w-24 h-24 rounded-lg overflow-hidden bg-muted border border-border">
+            <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-lg overflow-hidden bg-muted border border-border">
               <Image
                 src={imagePreview}
                 alt="Preview"
@@ -385,14 +498,14 @@ function ProductForm({
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="status" className="text-card-foreground">Status</Label>
+        <Label htmlFor="status" className="text-card-foreground text-sm">Status</Label>
         <Select
           value={formData.status}
           onValueChange={(value: "disponivel" | "reservado") =>
             setFormData({ ...formData, status: value })
           }
         >
-          <SelectTrigger className="bg-background">
+          <SelectTrigger className="bg-background text-sm">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -405,7 +518,7 @@ function ProductForm({
       <Button
         type="submit"
         disabled={isSubmitting}
-        className="w-full bg-primary hover:bg-primary/90 text-primary-foreground rounded-full"
+        className="w-full bg-primary hover:bg-primary/90 text-primary-foreground rounded-full text-sm"
       >
         {isSubmitting ? "Salvando..." : product ? "Atualizar Produto" : "Adicionar Produto"}
       </Button>
