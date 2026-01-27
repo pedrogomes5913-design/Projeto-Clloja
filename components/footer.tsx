@@ -16,7 +16,7 @@ export function Footer() {
               </span>
             </div>
             <p className="text-background/70 text-sm">
-              Celulares 100% originais, seminovos, com garantia de 90 dias e preço justo.
+              Celulares 100% originais, seminovos, com garantia de 90 dias e preco justo.
             </p>
           </div>
 
@@ -66,8 +66,8 @@ export function Footer() {
               <div className="flex items-start gap-2 text-background/70">
                 <MapPin className="w-4 h-4 mt-0.5 shrink-0" />
                 <span>
-                  Rua São Cristóvão, 461, Loja 15<br />
-                  Edifício Futuro - Centro<br />
+                  Rua Sao Cristovao, 461, Loja 15<br />
+                  Edificio Futuro - Centro<br />
                   Aracaju - SE, 49010-904
                 </span>
               </div>

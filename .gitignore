@@ -25,9 +25,3 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
-# uploaded images
-/public/products/*.jpg
-/public/products/*.jpeg
-/public/products/*.png
-/public/products/*.webp
